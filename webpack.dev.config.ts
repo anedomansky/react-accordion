@@ -3,6 +3,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.base.config';
 
 const devConfig: webpack.Configuration = {
+    mode: 'development',
     devtool: 'eval-source-map',
 };
 

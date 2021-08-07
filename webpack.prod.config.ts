@@ -3,6 +3,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.base.config';
 
 const prodConfig: webpack.Configuration = {
+    mode: 'production',
     devtool: 'source-map',
 };
 

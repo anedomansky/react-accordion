@@ -8,7 +8,7 @@ const baseConfig: webpack.Configuration = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
@@ -47,8 +47,9 @@ const baseConfig: webpack.Configuration = {
         }),
     ],
     resolve: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.ts', '.tsx', '.js'],
     },
+    externals: ['react', 'react-dom'],
 };
 
 export default baseConfig;

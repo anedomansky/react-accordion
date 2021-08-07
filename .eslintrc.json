@@ -29,11 +29,27 @@
         }
     },
     "rules": {
+        "no-use-before-define": "off",
         "indent": [
             "error",
             4
         ],
+        "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "react/prop-types": 0,
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
+            }
+        ],
+        "react/jsx-indent": [
+            "warn",
+            4
+        ]
     }
 }
