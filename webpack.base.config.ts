@@ -2,9 +2,6 @@ import webpack from 'webpack';
 import path from 'path';
 
 const baseConfig: webpack.Configuration = {
-    entry: {
-        index: './src/index.tsx',
-    },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
@@ -34,12 +31,9 @@ const baseConfig: webpack.Configuration = {
             },
         ],
     },
-    plugins: [
-    ],
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
     },
-    externals: ['react', 'react-dom'],
 };
 
 export default baseConfig;
