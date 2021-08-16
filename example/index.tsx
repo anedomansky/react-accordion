@@ -5,7 +5,7 @@ import '../src/index.scss';
 
 const App: React.FC = () => (
     <div>
-        <Accordion heading="Accordion" />
+        <Accordion heading="Accordion-Heading" />
     </div>
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import AccordionItem from '../accordion-item/AccordionItem';
 import './Accordion.scss';
 
 interface Props {
@@ -6,7 +7,10 @@ interface Props {
 }
 
 const Accordion: React.FC<Props> = ({ heading }) => (
-    <div>{heading}</div>
+    <section className="accordion">
+        <h2 className="accordion__heading">{heading}</h2>
+        <AccordionItem />
+    </section>
 );
 
 export default Accordion;
