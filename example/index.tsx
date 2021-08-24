@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Accordion from '../src/accordion/Accordion';
-import '../src/index.scss';
+import './index.scss';
 
 const App: React.FC = () => (
-    <div>
+    <div className="example">
         <Accordion heading="Accordion-Heading" />
     </div>
 );

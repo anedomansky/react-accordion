@@ -4,7 +4,7 @@ import baseConfig from './webpack.base.config';
 
 const prodConfig: webpack.Configuration = {
     entry: {
-        index: './src/index.tsx',
+        index: './src/index.ts',
     },
     mode: 'production',
     devtool: 'source-map',

@@ -4,11 +4,19 @@ import './Accordion.scss';
 
 interface Props {
     heading: string;
+    allowMultipleOpen?: boolean;
+    onSelect?: () => void;
+    classNameContainer?: string;
+    classNameHeading?: string;
 }
 
-const Accordion: React.FC<Props> = ({ heading }) => (
-    <section className="accordion">
-        <h2 className="accordion__heading">{heading}</h2>
+const Accordion: React.FC<Props> = ({
+    heading, allowMultipleOpen, onSelect, classNameContainer, classNameHeading,
+}) => (
+    <section className={`accordion ${classNameContainer}`}>
+        <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>
+        <AccordionItem open />
+        <AccordionItem />
         <AccordionItem />
     </section>
 );
