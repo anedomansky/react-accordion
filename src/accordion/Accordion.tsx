@@ -3,20 +3,30 @@ import AccordionItem, { AccordionItemProps } from '../accordion-item/AccordionIt
 import './Accordion.scss';
 
 interface Props {
-    heading: string;
+    heading?: string;
     allowMultipleOpen?: boolean;
     onSelect?: () => void;
     classNameContainer?: string;
     classNameHeading?: string;
+    children: React.ReactElement;
 }
 
 const Accordion: React.FC<Props> = ({
     heading, allowMultipleOpen, onSelect, classNameContainer, classNameHeading, children,
-}) =>
-    // TODO: figure out a way to determine the child types and filter them
-    (
+}) => {
+    const getChildren = () => React.Children.map(
+        children,
+        (child: React.ReactElement<AccordionItemProps>) => {
+            if (child.type === AccordionItem) {
+                return child;
+            }
+            return null;
+        },
+    );
+
+    return (
         <section className={`accordion ${classNameContainer}`}>
-            <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>
+            {heading && <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>}
             <AccordionItem open summary="Summary1" onSelect={onSelect}>
                 Accordion-Content 1
             </AccordionItem>
@@ -28,4 +38,6 @@ const Accordion: React.FC<Props> = ({
             </AccordionItem>
         </section>
     );
+};
+
 export default Accordion;
