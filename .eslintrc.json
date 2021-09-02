@@ -50,6 +50,7 @@
         "react/jsx-indent": [
             "warn",
             4
-        ]
+        ],
+        "react/jsx-indent-props": 0
     }
 }

@@ -5,10 +5,10 @@ import './Accordion.scss';
 interface Props {
     heading?: string;
     allowMultipleOpen?: boolean;
-    onSelect?: () => void;
+    onSelect?: (isOpen: boolean, id: string) => void;
     classNameContainer?: string;
     classNameHeading?: string;
-    children: React.ReactElement;
+    children: React.ReactElement<AccordionItemProps>[];
 }
 
 const Accordion: React.FC<Props> = ({
@@ -24,18 +24,26 @@ const Accordion: React.FC<Props> = ({
         },
     );
 
+    const items = () => getChildren().map((child, index) => {
+        const {
+            summary, classNameContent, classNameItem, classNameSummary, id, open,
+        } = child.props;
+
+        return (
+            <AccordionItem
+                key={id}
+                summary={summary}
+                onSelect={onSelect}
+            >
+                {children}
+            </AccordionItem>
+        );
+    });
+
     return (
         <section className={`accordion ${classNameContainer}`}>
             {heading && <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>}
-            <AccordionItem open summary="Summary1" onSelect={onSelect}>
-                Accordion-Content 1
-            </AccordionItem>
-            <AccordionItem summary="Summary2" onSelect={onSelect}>
-                <p>Accordion-Content 2</p>
-            </AccordionItem>
-            <AccordionItem summary="Summary3" onSelect={onSelect}>
-                <span>Accordion-Content 3</span>
-            </AccordionItem>
+            {items}
         </section>
     );
 };
