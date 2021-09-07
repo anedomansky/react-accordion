@@ -15,7 +15,9 @@ export interface AccordionItemProps {
 const AccordionItem: React.FC<AccordionItemProps> = ({
     open, onSelect, classNameItem, classNameSummary, classNameContent, id, summary, children,
 }) => {
-    const onItemClick = () => {
+    const onItemClick = (event: React.MouseEvent<HTMLDetailsElement>) => {
+        event.preventDefault();
+
         if (onSelect && id) {
             onSelect(!open, id);
         }

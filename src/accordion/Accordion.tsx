@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AccordionItem, { AccordionItemProps } from '../accordion-item/AccordionItem';
 import './Accordion.scss';
 
 interface Props {
     heading?: string;
-    allowMultipleOpen?: boolean;
     onSelect?: (isOpen: boolean, id: string) => void;
     classNameContainer?: string;
     classNameHeading?: string;
@@ -16,28 +15,16 @@ interface AccordionItemState {
 }
 
 const Accordion: React.FC<Props> = ({
-    heading, allowMultipleOpen, onSelect, classNameContainer, classNameHeading, children,
+    heading, onSelect, classNameContainer, classNameHeading, children,
 }) => {
     const [accordionItems, setAccordionItems] = useState<AccordionItemState>({});
-    const [initialAccordionItems, setInitialAccordionItems] = useState<AccordionItemState[]>([]);
-
-    useEffect(() => {
-        initialAccordionItems.forEach((item) => setAccordionItems(item));
-    }, []);
 
     const onItemSelect = (isOpen: boolean, id: string) => {
-        console.log(id, isOpen);
         if (onSelect) {
             onSelect(isOpen, id);
         }
 
-        // if (!allowMultipleOpen) {
-        //     Object.keys(accordionItems)
-        //         .forEach((item) => setAccordionItems({ ...accordionItems, [item]: false }));
-        // }
-
         setAccordionItems({ ...accordionItems, [id]: isOpen });
-        console.log(accordionItems);
     };
 
     const getChildren = () => React.Children.map(
@@ -58,10 +45,6 @@ const Accordion: React.FC<Props> = ({
         const itemId = id || `item-id-${index}`;
 
         const { [itemId]: isOpen } = accordionItems;
-
-        // if (initialAccordionItems.length <= getChildren().length) {
-        //     setInitialAccordionItems([...initialAccordionItems, { [itemId]: !!open }]);
-        // }
 
         return (
             <AccordionItem
