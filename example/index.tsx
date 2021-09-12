@@ -6,8 +6,8 @@ import './index.scss';
 
 const App: React.FC = () => (
     <div className="example">
-        <Accordion heading="Accordion-Heading" onSelect={() => null}>
-            <AccordionItem open summary="Summary1">
+        <Accordion heading="Accordion-Heading" onSelect={(isOpen, id) => console.log(isOpen, id)} dataTestAccordionId="test-accordion">
+            <AccordionItem open summary="Summary1" dataTestId="test-item">
                 Accordion-Content 1
             </AccordionItem>
             <AccordionItem summary="Summary2">

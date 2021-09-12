@@ -8,6 +8,7 @@ interface Props {
     classNameContainer?: string;
     classNameHeading?: string;
     children: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
+    dataTestAccordionId?: string;
 }
 
 interface AccordionItemState {
@@ -15,7 +16,7 @@ interface AccordionItemState {
 }
 
 const Accordion: React.FC<Props> = ({
-    heading, onSelect, classNameContainer, classNameHeading, children,
+    heading, onSelect, classNameContainer, classNameHeading, dataTestAccordionId, children,
 }) => {
     const [accordionItems, setAccordionItems] = useState<AccordionItemState>({});
 
@@ -39,7 +40,7 @@ const Accordion: React.FC<Props> = ({
 
     const items = getChildren().map((child, index) => {
         const {
-            summary, classNameContent, classNameItem, classNameSummary, id, open,
+            summary, classNameContent, classNameItem, classNameSummary, id, open, dataTestId,
         } = child.props;
 
         const itemId = id || `item-id-${index}`;
@@ -56,6 +57,7 @@ const Accordion: React.FC<Props> = ({
                 classNameItem={classNameItem}
                 classNameSummary={classNameSummary}
                 open={isOpen ?? open}
+                dataTestId={dataTestId}
             >
                 {child.props.children}
             </AccordionItem>
@@ -63,7 +65,7 @@ const Accordion: React.FC<Props> = ({
     });
 
     return (
-        <section className={`accordion ${classNameContainer}`}>
+        <section className={`accordion ${classNameContainer}`} data-testid={dataTestAccordionId}>
             {heading && <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>}
             {items}
         </section>

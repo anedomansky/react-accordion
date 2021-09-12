@@ -29,6 +29,7 @@
         }
     },
     "rules": {
+        "max-len": "off",
         "no-use-before-define": "off",
         "indent": [
             "error",
