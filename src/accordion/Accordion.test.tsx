@@ -37,6 +37,8 @@ test('Renders the Accordion component with onSelect', () => {
 });
 
 test('Renders the Accordion component without onSelect', () => {
+    const currentId = '';
+    const opened = false;
     const { container, getByTestId } = render(
         <Accordion>
             <AccordionItem dataTestId="item-data-test" summary="Test" />
@@ -44,8 +46,8 @@ test('Renders the Accordion component without onSelect', () => {
     );
     fireEvent.click(getByTestId('item-data-test'));
     expect(container).toBeInTheDocument();
-    expect(currentId).toEqual('item-id-0');
-    expect(opened).toBeTruthy();
+    expect(currentId).toEqual('');
+    expect(opened).toBeFalsy();
 });
 
 test('Renders the Accordion component with heading', () => {

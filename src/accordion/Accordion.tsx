@@ -45,8 +45,6 @@ const Accordion: React.FC<Props> = ({
 
         const itemId = id || `item-id-${index}`;
 
-        const { [itemId]: isOpen } = accordionItems;
-
         return (
             <AccordionItem
                 key={itemId}
@@ -56,7 +54,7 @@ const Accordion: React.FC<Props> = ({
                 classNameContent={classNameContent}
                 classNameItem={classNameItem}
                 classNameSummary={classNameSummary}
-                open={isOpen ?? open}
+                open={accordionItems[itemId] ?? open}
                 dataTestId={dataTestId}
             >
                 {child.props.children}
