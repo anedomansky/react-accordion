@@ -1,73 +1,65 @@
-import React, { useState } from 'react';
-import AccordionItem, { AccordionItemProps } from '../accordion-item/AccordionItem';
-import './Accordion.scss';
+import React, { useContext, useState } from 'react';
 
-interface Props {
-    heading?: string;
-    onSelect?: (isOpen: boolean, id: string) => void;
-    classNameContainer?: string;
-    classNameHeading?: string;
-    children: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
-    dataTestAccordionId?: string;
+interface ContextType {
+    toggleShow: boolean;
+    setToggleShow: (show: boolean) => void;
 }
 
-interface AccordionItemState {
-    [id: string]: boolean;
+interface AccordionComposition {
+    Item: React.FC;
+    Summary: React.FC;
+    Content: React.FC;
 }
 
-const Accordion: React.FC<Props> = ({
-    heading, onSelect, classNameContainer, classNameHeading, dataTestAccordionId, children,
-}) => {
-    const [accordionItems, setAccordionItems] = useState<AccordionItemState>({});
+const ToggleContext = React.createContext<ContextType>({
+    toggleShow: false,
+    setToggleShow: () => null,
+});
 
-    const onItemSelect = (isOpen: boolean, id: string) => {
-        if (onSelect) {
-            onSelect(isOpen, id);
-        }
+const Accordion: React.FC & AccordionComposition = ({ children }) => (
+    <section>
+        {children}
+    </section>
+);
 
-        setAccordionItems({ ...accordionItems, [id]: isOpen });
-    };
-
-    const getChildren = () => React.Children.map(
-        children,
-        (child: React.ReactElement<AccordionItemProps>) => {
-            if (child.type === AccordionItem) {
-                return child;
-            }
-            return null;
-        },
-    );
-
-    const items = getChildren().map((child, index) => {
-        const {
-            summary, classNameContent, classNameItem, classNameSummary, id, open, dataTestId,
-        } = child.props;
-
-        const itemId = id || `item-id-${index}`;
-
-        return (
-            <AccordionItem
-                key={itemId}
-                id={itemId}
-                summary={summary}
-                onSelect={onItemSelect}
-                classNameContent={classNameContent}
-                classNameItem={classNameItem}
-                classNameSummary={classNameSummary}
-                open={accordionItems[itemId] ?? open}
-                dataTestId={dataTestId}
-            >
-                {child.props.children}
-            </AccordionItem>
-        );
-    });
-
+const AccordionItem: React.FC = ({ children }) => {
+    const [toggleShow, setToggleShow] = useState<boolean>(false);
     return (
-        <section className={`accordion ${classNameContainer}`} data-testid={dataTestAccordionId}>
-            {heading && <h2 className={`accordion__heading ${classNameHeading}`}>{heading}</h2>}
-            {items}
-        </section>
+        <ToggleContext.Provider value={{ toggleShow, setToggleShow }}>
+            <details open={toggleShow}>
+                {children}
+            </details>
+        </ToggleContext.Provider>
     );
 };
 
+const AccordionSummary: React.FC = ({ children }) => {
+    const { toggleShow, setToggleShow } = useContext(ToggleContext);
+    const toggle = (event: React.MouseEvent<HTMLDetailsElement>) => {
+        event.preventDefault();
+        setToggleShow(!toggleShow);
+    };
+
+    return (
+        <summary onClick={toggle}>
+            {children}
+        </summary>
+    );
+};
+
+const AccordionContent: React.FC = ({ children }) => (
+    <div>
+        {children}
+    </div>
+);
+
+Accordion.Item = AccordionItem;
+Accordion.Summary = AccordionSummary;
+Accordion.Content = AccordionContent;
+
 export default Accordion;
+
+// TODO: split into multiple files
+// TODO: add unit tests
+// TODO: add default styles
+// TODO: add missing props
