@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
-
-interface ContextType {
-    toggleShow: boolean;
-    setToggleShow: (show: boolean) => void;
-}
+import React from 'react';
+import AccordionContent from '../accordion-content/AccordionContent';
+import AccordionItem from '../accordion-item/AccordionItem';
+import AccordionSummary from '../accordion-summary/AccordionSummary';
 
 interface AccordionComposition {
     Item: React.FC;
@@ -11,46 +9,15 @@ interface AccordionComposition {
     Content: React.FC;
 }
 
-const ToggleContext = React.createContext<ContextType>({
-    toggleShow: false,
-    setToggleShow: () => null,
-});
+interface Props {
+    classNameContainer?: string;
+    dataTestId?: string;
+}
 
-const Accordion: React.FC & AccordionComposition = ({ children }) => (
-    <section>
+const Accordion: React.FC<Props> & AccordionComposition = ({ classNameContainer, dataTestId, children }) => (
+    <section className={classNameContainer ?? 'accordion'} data-testid={dataTestId}>
         {children}
     </section>
-);
-
-const AccordionItem: React.FC = ({ children }) => {
-    const [toggleShow, setToggleShow] = useState<boolean>(false);
-    return (
-        <ToggleContext.Provider value={{ toggleShow, setToggleShow }}>
-            <details open={toggleShow}>
-                {children}
-            </details>
-        </ToggleContext.Provider>
-    );
-};
-
-const AccordionSummary: React.FC = ({ children }) => {
-    const { toggleShow, setToggleShow } = useContext(ToggleContext);
-    const toggle = (event: React.MouseEvent<HTMLDetailsElement>) => {
-        event.preventDefault();
-        setToggleShow(!toggleShow);
-    };
-
-    return (
-        <summary onClick={toggle}>
-            {children}
-        </summary>
-    );
-};
-
-const AccordionContent: React.FC = ({ children }) => (
-    <div>
-        {children}
-    </div>
 );
 
 Accordion.Item = AccordionItem;
@@ -59,7 +26,5 @@ Accordion.Content = AccordionContent;
 
 export default Accordion;
 
-// TODO: split into multiple files
 // TODO: add unit tests
-// TODO: add default styles
 // TODO: add missing props
