@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ToggleContext from '../context/toggleContext';
+import ToggleContext from '../../context/toggleContext';
 import './AccordionSummary.scss';
 
 interface Props {

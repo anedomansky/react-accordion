@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ToggleContext from '../context/toggleContext';
+import ToggleContext from '../../context/toggleContext';
 
 interface Props {
     classNameItem?: string;

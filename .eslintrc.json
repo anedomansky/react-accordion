@@ -39,6 +39,7 @@
         "import/no-extraneous-dependencies": "off",
         "import/no-unresolved": "off",
         "react/prop-types": 0,
+        "react/require-default-props": 0,
         "react/jsx-filename-extension": [
             "warn",
             {
