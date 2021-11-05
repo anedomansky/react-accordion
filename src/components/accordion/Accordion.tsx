@@ -12,7 +12,3 @@ const Accordion: React.FC<Props> = ({ classNameContainer, dataTestId, children }
 );
 
 export default Accordion;
-
-// TODO: add missing props
-// TODO: add README
-// TODO: check dependencies
