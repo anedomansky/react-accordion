@@ -62,6 +62,8 @@ A customizable and accessible accordion made with React.
 | `dataTestId` | string | ID for testing purposes (e.g. Jest) | |
 | `onClick` | (opened: boolean) => void | Callback for the 'click'-Event on the `<summary>`-tag | |
 
+`<AccordionContent>`
+
 | Name | Type | Description | Default |
 | ------ | ------ | ------ | ------ |
 | `classNameContent` | string | Custom CSS-Classes for the `<div>`-tag | |
